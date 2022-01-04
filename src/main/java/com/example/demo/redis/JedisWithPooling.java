@@ -1,5 +1,6 @@
 package com.example.demo.redis;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -15,7 +16,7 @@ public class JedisWithPooling implements IRedis {
 
     private static JedisPoolConfig buildPoolConfig() {
         final JedisPoolConfig poolConfig = new JedisPoolConfig();
-        poolConfig.setMaxTotal(128);
+        poolConfig.setMaxTotal(1000);
         poolConfig.setMaxIdle(128);
         poolConfig.setMinIdle(16);
         poolConfig.setTestOnBorrow(true);
@@ -27,6 +28,7 @@ public class JedisWithPooling implements IRedis {
     }
 
     @Override
+    @Async
     public void save(String key, String value) {
         try (Jedis jedis = jedisPool.getResource()) {
             jedis.set(key, value);
