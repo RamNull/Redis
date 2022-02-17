@@ -64,7 +64,12 @@ public class RedisController {
     @PostMapping("/poolLettuce")
     public String poolLettuceSet() {
         String uuid = UUID.randomUUID().toString();
-        IntStream.range(0, 10).parallel().forEach(i -> handler.setPoolLettuceSave(uuid));
+        //handler.setPoolLettuceSaveAsync(uuid);
+        for(int i=0;i<10;i++)
+        {
+            handler.setPoolLettuceSave(uuid);
+        }
+        //IntStream.range(0, 10).parallel().forEach(i -> handler.setPoolLettuceSave(uuid));
         return uuid;
     }
 
@@ -76,10 +81,14 @@ public class RedisController {
 
 
 
-    @PostMapping("/poolLettuceAsync")
+        @PostMapping("/poolLettuceAsync")
     public String poolLettuceAsyncSet() {
         String uuid = UUID.randomUUID().toString();
-        IntStream.range(0, 10).parallel().forEach(i -> handler.setPoolLettuceSaveAsync(uuid));
+        for(int i =0;i<10;i++)
+        {
+            handler.setPoolLettuceSave(uuid);
+        }
+            //IntStream.range(0, 10).parallel().forEach(i -> handler.setPoolLettuceSave(uuid));
         return uuid;
     }
 

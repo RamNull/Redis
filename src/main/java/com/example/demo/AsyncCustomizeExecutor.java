@@ -19,7 +19,7 @@ public class AsyncCustomizeExecutor extends AsyncConfigurerSupport {
     @Value("${pool.size:10}")
     private int maxPoolSize;
 
-    @Value("${queue.capacity:600}")
+    @Value("${queue.capacity:100000}")
     private int queueCapacity;
 
 

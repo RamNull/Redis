@@ -5,6 +5,8 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 
 @Component
 public class Handler {
@@ -41,8 +43,14 @@ public class Handler {
     }
 
     public void setPoolLettuceSave(String key) {
-        String date = new DateTime().toString();
-        lettuceWithPooling.save("key".concat(key), "date is ".concat(date));
+        try {
+            String date = new DateTime().toString();
+            lettuceWithPooling.save("key".concat(UUID.randomUUID().toString()), "date is ".concat(date));
+        }catch (Exception ex)
+        {
+            ex.printStackTrace();
+            throw ex;
+        }
     }
 
     public String getPoolLettuce(String key) throws Exception {
